@@ -8,7 +8,7 @@ import com.example.polydome.projectgutman.domain.model.GoalTrigger
 @Entity(tableName = "goalTrigger")
 class GoalTriggerEntity(
     @PrimaryKey(autoGenerate = true) val id: Int?,
-    @ColumnInfo(name = "goalTriggerType") val goalTriggerType: GoalTrigger,
+    @ColumnInfo(name = "triggerType") val triggerType: TriggerType,
     @ColumnInfo(name = "value") val value: Long
 )
 
