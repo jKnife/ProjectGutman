@@ -14,12 +14,14 @@ class ActionViewHolder(itemView: View, val viewModel: ActionViewModel) : Recycle
     private val compositeDisposable = CompositeDisposable()
 
     fun onAttach() {
-        compositeDisposable.add(viewModel.name
+        compositeDisposable.add(
+            viewModel.name
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 itemView.findViewById<TextView>(R.id.action_entity_name).text = it
-            })
+            }
+        )
     }
 
     fun onDetach() {
