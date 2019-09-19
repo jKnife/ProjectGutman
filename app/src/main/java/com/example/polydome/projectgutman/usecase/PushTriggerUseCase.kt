@@ -5,17 +5,21 @@ import com.example.polydome.projectgutman.domain.model.Goal
 import com.example.polydome.projectgutman.domain.model.GoalTrigger
 import com.example.polydome.projectgutman.domain.service.GoalService
 import com.example.polydome.projectgutman.repository.ActionsRepository
+import com.example.polydome.projectgutman.repository.GoalTriggerRepository
 
-class PushTriggerUseCase(private val actionsRepository: ActionsRepository) {
+class PushTriggerUseCase(private val goalTriggerRepository: GoalTriggerRepository,
+                         private val actionsRepository: ActionsRepository) {
 
     @SuppressLint("CheckResult")
     fun pushTrigger(actionId: Int, value: Long) {
         actionsRepository.findAction(actionId).subscribe({ action ->
 
-            val newGoal = GoalService.runTrigger(action.goal as Goal.Count, GoalTrigger.Count(value.toInt()))
-            val newAction = action.copy(goal = newGoal)
+            val trigger: GoalTrigger = when (action.goal) {
+                is Goal.Count -> GoalTrigger.Count(value.toInt())
+                else -> throw Error("Unimplemented")
+            }
 
-            actionsRepository.updateAction(newAction)
+            goalTriggerRepository.insert(trigger).subscribe()
 
         }, { throw it }, { throw NoSuchActionException(actionId) })
     }
