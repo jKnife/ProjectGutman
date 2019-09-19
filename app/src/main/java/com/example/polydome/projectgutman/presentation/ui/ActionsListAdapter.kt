@@ -54,13 +54,13 @@ class ActionsListAdapter
     override fun onViewDetachedFromWindow(holder: ActionViewHolder) {
         super.onViewDetachedFromWindow(holder)
 
-        holder.onAttach()
+        holder.onDetach()
     }
 
     override fun onViewAttachedToWindow(holder: ActionViewHolder) {
         super.onViewAttachedToWindow(holder)
 
-        holder.onDetach()
+        holder.onAttach()
     }
 
 }

@@ -1,9 +1,7 @@
 package com.example.polydome.projectgutman.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 @Dao
@@ -13,7 +11,7 @@ interface ActionEntityDao {
     fun getAllActions(): List<ActionEntity>
 
     @Insert
-    fun insertAction(actionEntity: ActionEntity)
+    fun insertAction(actionEntity: ActionEntity): Completable
 
     @Query("DELETE from actionEntity")
     fun deleteAllActions()
@@ -26,4 +24,8 @@ interface ActionEntityDao {
 
     @Query("SELECT * FROM actionEntity where id = :id")
     fun getById(id: Int): Observable<ActionEntity>
+
+    @Update
+    fun updateAction(actionEntity: ActionEntity): Completable
+
 }
