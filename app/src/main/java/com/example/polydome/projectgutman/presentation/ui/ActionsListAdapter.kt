@@ -29,7 +29,7 @@ class ActionsListAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActionViewHolder {
         val inflater = LayoutInflater.from(activityContext)
-        val view = inflater.inflate(R.layout.action_entry, parent)
+        val view = inflater.inflate(R.layout.action_entry, parent, false)
         return ActionViewHolder(view, actionViewModelProvider.get())
     }
 
