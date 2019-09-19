@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.polydome.projectgutman.R
 import com.example.polydome.projectgutman.data.ActionEntityDao
 import com.example.polydome.projectgutman.presentation.viewmodel.ActionViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Provider
@@ -42,7 +44,10 @@ class ActionsListAdapter
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         compositeDisposable.add(
-            actionEntityDao.getIds().subscribe(this::updateIdsList)
+            actionEntityDao.getIds()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::updateIdsList)
         )
     }
 
