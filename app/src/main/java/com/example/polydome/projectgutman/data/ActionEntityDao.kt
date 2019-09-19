@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Observable
 
 @Dao
 interface ActionEntityDao {
@@ -19,4 +20,10 @@ interface ActionEntityDao {
 
     @Delete
     fun deleteOneAction(actionEntity: ActionEntity)
+
+    @Query("SELECT id FROM actionEntity")
+    fun getIds(): Observable<List<Int>>
+
+    @Query("SELECT * FROM actionEntity where id = :id")
+    fun getById(id: Int): Observable<ActionEntity>
 }

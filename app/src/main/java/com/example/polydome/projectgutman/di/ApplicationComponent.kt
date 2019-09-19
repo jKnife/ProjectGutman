@@ -1,8 +1,10 @@
 package com.example.polydome.projectgutman.di
 
 import dagger.Component
+import javax.inject.Singleton
 
-@Component
+@Singleton
+@Component(modules = [ApplicationModule::class, DatabaseModule::class])
 interface ApplicationComponent {
-    fun newPresentationComponent(): PresentationComponent
+    fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
 }

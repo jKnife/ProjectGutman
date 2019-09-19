@@ -2,6 +2,7 @@ package com.example.polydome.projectgutman
 
 import android.app.Application
 import com.example.polydome.projectgutman.di.ApplicationComponent
+import com.example.polydome.projectgutman.di.ApplicationModule
 import com.example.polydome.projectgutman.di.DaggerApplicationComponent
 
 class App : Application() {
@@ -10,6 +11,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponent = DaggerApplicationComponent.create()
+        applicationComponent = DaggerApplicationComponent
+            .builder()
+            .applicationModule(ApplicationModule(this))
+            .build()
     }
 }
