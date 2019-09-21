@@ -18,9 +18,18 @@ class ActionViewHolder(itemView: View, val viewModel: ActionViewModel) : Recycle
             viewModel.name
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
+            .subscribe({
                 itemView.findViewById<TextView>(R.id.action_entity_name).text = it
-            }
+            }, { throw it })
+        )
+
+        compositeDisposable.add(
+            viewModel.goalState
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    itemView.findViewById<TextView>(R.id.action_entity_current_value).text = it
+                }, { throw it })
         )
     }
 
