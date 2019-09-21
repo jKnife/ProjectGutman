@@ -4,12 +4,13 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Observable
 
 @Dao
 interface GoalTriggerDao {
 
     @Query("SELECT * from goalTrigger")
-    fun getAllTriggers(): List<GoalTriggerEntity>
+    fun getAllTriggers(): Observable<List<GoalTriggerEntity>>
 
     @Insert
     fun insertTrigger(goalTriggerEntity: GoalTriggerEntity)
@@ -19,5 +20,8 @@ interface GoalTriggerDao {
 
     @Delete
     fun deleteOneTrigger(goalTriggerEntity: GoalTriggerEntity)
+
+    @Query("SELECT * FROM goalTrigger WHERE actionId = :actionId")
+    fun getByActionId(actionId: Int): Observable<List<GoalTriggerEntity>>
 
 }
