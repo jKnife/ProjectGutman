@@ -39,6 +39,7 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt 'com.google.dagger:dagger-compiler:2.24'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+    testImplementation 'io.mockk:mockk:1.9.3.kotlin12'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
