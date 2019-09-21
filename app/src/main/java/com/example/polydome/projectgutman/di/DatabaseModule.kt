@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.polydome.projectgutman.data.ActionEntityDao
 import com.example.polydome.projectgutman.data.AppDatabase
+import com.example.polydome.projectgutman.data.GoalTriggerDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -27,6 +28,11 @@ class DatabaseModule {
     @Provides
     fun provideActionEntityDao(appDatabase: AppDatabase): ActionEntityDao {
         return appDatabase.actionEntityDao()
+    }
+
+    @Provides
+    fun provideGoalTriggerDao(appDatabase: AppDatabase): GoalTriggerDao {
+        return appDatabase.goalTriggerDao()
     }
 
 }
