@@ -3,7 +3,6 @@ package com.example.polydome.projectgutman.repository
 import com.example.polydome.projectgutman.data.ActionEntity
 import com.example.polydome.projectgutman.data.ActionEntityDao
 import com.example.polydome.projectgutman.data.TriggerType
-import com.example.polydome.projectgutman.domain.model.Difficulty
 import com.example.polydome.projectgutman.domain.model.Goal
 import io.mockk.every
 import io.mockk.mockk
@@ -31,8 +30,7 @@ class GoalRepositoryTest {
             currentValue = 20,
             targetValue = 40,
             triggerType = TriggerType.COUNT,
-            name = "huu",
-            difficulty = Difficulty.EASY
+            name = "huu"
         )
 
         every { actionEntityDao.getById(ID) } returns Observable.just(ACTION_ENTITY)

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @TypeConverters(value = [Converters::class])
-@Database(entities = [ActionEntity::class, GoalTriggerEntity::class], version = 2)
+@Database(entities = [ActionEntity::class, GoalTriggerEntity::class], version = 3)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun actionEntityDao(): ActionEntityDao
     abstract fun goalTriggerDao(): GoalTriggerDao
