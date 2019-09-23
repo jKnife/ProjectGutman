@@ -9,7 +9,7 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import javax.inject.Inject
 
-class ActionsRepository
+class ActionRepository
 @Inject constructor(private val actionEntityDao: ActionEntityDao) {
 
     fun insertAction(name: String, goal: Goal): Completable = Completable.defer {

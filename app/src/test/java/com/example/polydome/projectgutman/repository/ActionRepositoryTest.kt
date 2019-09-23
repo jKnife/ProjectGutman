@@ -11,15 +11,15 @@ import io.reactivex.Completable
 import org.junit.Before
 import org.junit.Test
 
-class ActionsRepositoryTest {
+class ActionRepositoryTest {
 
-    private lateinit var SUT: ActionsRepository
+    private lateinit var SUT: ActionRepository
     private lateinit var actionEntityDao: ActionEntityDao
 
     @Before
     fun setup() {
         actionEntityDao = mockk()
-        SUT = ActionsRepository(actionEntityDao)
+        SUT = ActionRepository(actionEntityDao)
     }
 
     @Test
