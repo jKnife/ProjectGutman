@@ -13,7 +13,7 @@ class GoalRepository
         actionEntityDao.getById(actionId)
             .map {
                 when (it.triggerType) {
-                    TriggerType.COUNT -> Goal.Count(0, it.targetValue.toInt())
+                    TriggerType.COUNT -> Goal.Count(it.targetValue.toInt())
                 }
             }
 

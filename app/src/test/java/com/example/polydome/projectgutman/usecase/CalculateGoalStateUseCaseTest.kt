@@ -1,6 +1,7 @@
 package com.example.polydome.projectgutman.usecase
 
 import com.example.polydome.projectgutman.domain.model.Goal
+import com.example.polydome.projectgutman.domain.model.GoalState
 import com.example.polydome.projectgutman.domain.model.GoalTrigger
 import com.example.polydome.projectgutman.repository.GoalRepository
 import com.example.polydome.projectgutman.repository.GoalTriggerRepository
@@ -18,10 +19,7 @@ class CalculateGoalStateUseCaseTest {
     private lateinit var goalTriggerRepository: GoalTriggerRepository
 
     val ID = 33
-    val GOAL = Goal.Count(
-        current = 0,
-        target = 40
-    )
+    val GOAL = Goal.Count(40)
     val TRIGGER_ONE = GoalTrigger.Count(28)
     val TRIGGER_TWO = GoalTrigger.Count(41)
 

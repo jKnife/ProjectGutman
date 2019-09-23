@@ -27,7 +27,7 @@ class GoalRepositoryTest {
         val ID = 13
         val ACTION_ENTITY = ActionEntity(
             id = null,
-            currentValue = 20,
+            currentValue = 0,
             targetValue = 40,
             triggerType = TriggerType.COUNT,
             name = "huu"
@@ -40,8 +40,7 @@ class GoalRepositoryTest {
         SUT.getByActionId(ID).subscribe(test)
 
         val expectedGoal: Goal = Goal.Count(
-            current = 0,
-            target = ACTION_ENTITY.targetValue.toInt()
+            targetCount = ACTION_ENTITY.targetValue.toInt()
         )
 
         test.assertValue(expectedGoal)
