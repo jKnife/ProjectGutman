@@ -1,26 +1,29 @@
 package com.example.polydome.projectgutman.usecase
 
-import android.annotation.SuppressLint
-import com.example.polydome.projectgutman.domain.model.GoalState
+import com.example.polydome.projectgutman.domain.model.Goal
 import com.example.polydome.projectgutman.domain.model.GoalTrigger
-import com.example.polydome.projectgutman.repository.ActionRepository
+import com.example.polydome.projectgutman.repository.GoalRepository
 import com.example.polydome.projectgutman.repository.GoalTriggerRepository
+import io.reactivex.Completable
+import javax.inject.Inject
 
-class PushTriggerUseCase(private val goalTriggerRepository: GoalTriggerRepository,
-                         private val actionRepository: ActionRepository) {
+class PushTriggerUseCase
+@Inject constructor(private val goalTriggerRepository: GoalTriggerRepository,
+                    private val goalRepository: GoalRepository) {
 
-    @SuppressLint("CheckResult")
-    fun pushTrigger(actionId: Int, value: Long) {
-        actionRepository.findAction(actionId).subscribe({ action ->
+    private fun createTrigger(goal: Goal, value: Long): GoalTrigger {
+        return when (goal) {
+            is Goal.Count -> GoalTrigger.Count(value.toInt())
+        }
 
-            val trigger: GoalTrigger = when (action.goalState) {
-                is GoalState.Count -> GoalTrigger.Count(value.toInt())
-                else -> throw Error("Unimplemented")
-            }
-
-            goalTriggerRepository.insert(trigger).subscribe()
-
-        }, { throw it }, { throw NoSuchActionException(actionId) })
     }
+
+    fun pushTrigger(actionId: Int, value: Long): Completable =
+        goalRepository.getByActionId(actionId)
+            .firstOrError()
+            .doOnError { throw NoSuchActionException(actionId) }
+            .flatMapCompletable {
+                goalTriggerRepository.insert(actionId, createTrigger(it, value))
+            }
 
 }
