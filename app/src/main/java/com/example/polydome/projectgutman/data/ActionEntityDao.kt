@@ -2,6 +2,7 @@ package com.example.polydome.projectgutman.data
 
 import androidx.room.*
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 
 @Dao
@@ -24,6 +25,9 @@ interface ActionEntityDao {
 
     @Query("SELECT * FROM actionEntity where id = :id")
     fun getById(id: Int): Observable<ActionEntity>
+
+    @Query("SELECT * FROM actionEntity where id = :id")
+    fun findById(id: Int): Maybe<ActionEntity>
 
     @Update
     fun updateAction(actionEntity: ActionEntity): Completable
