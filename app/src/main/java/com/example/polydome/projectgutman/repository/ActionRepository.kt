@@ -3,10 +3,8 @@ package com.example.polydome.projectgutman.repository
 import com.example.polydome.projectgutman.data.ActionEntity
 import com.example.polydome.projectgutman.data.ActionEntityDao
 import com.example.polydome.projectgutman.data.TriggerType
-import com.example.polydome.projectgutman.domain.model.Action
 import com.example.polydome.projectgutman.domain.model.Goal
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import javax.inject.Inject
 
 class ActionRepository
@@ -31,7 +29,5 @@ class ActionRepository
 
         actionEntityDao.insertAction(actionEntity)
     }
-
-    fun findAction(actionId: Int): Maybe<Action> = Maybe.empty()
 
 }
