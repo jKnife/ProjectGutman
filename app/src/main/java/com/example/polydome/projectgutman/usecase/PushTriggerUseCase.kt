@@ -19,9 +19,8 @@ class PushTriggerUseCase
     }
 
     fun pushTrigger(actionId: Int, value: Long): Completable =
-        goalRepository.getByActionId(actionId)
-            .firstOrError()
-            .doOnError { throw NoSuchActionException(actionId) }
+        goalRepository.findByActionId(actionId)
+            .doOnComplete { throw NoSuchActionException(actionId) }
             .flatMapCompletable {
                 goalTriggerRepository.insert(actionId, createTrigger(it, value))
             }

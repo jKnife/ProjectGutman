@@ -8,6 +8,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.observers.TestObserver
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
@@ -36,9 +37,7 @@ class PushTriggerUseCaseTest {
 
     @Test
     fun pushTrigger_noGoalEmitted_emitsError() {
-        val goalSubject = BehaviorSubject.create<Goal>()
-
-        every { goalRepository.getByActionId(ACTION_ID) } returns goalSubject
+        every { goalRepository.findByActionId(ACTION_ID) } returns Maybe.empty()
 
         SUT.pushTrigger(ACTION_ID, TRIGGER_VALUE)
             .subscribe(testObserver)
@@ -48,12 +47,8 @@ class PushTriggerUseCaseTest {
 
     @Test
     fun pushTrigger_actionEmitted_insertsTriggerAndCompletes() {
-        val goalSubject = BehaviorSubject.create<Goal>()
-
-        every { goalRepository.getByActionId(ACTION_ID) } returns goalSubject
+        every { goalRepository.findByActionId(ACTION_ID) } returns Maybe.just(GOAL)
         every { goalTriggerRepository.insert(ACTION_ID,GOAL_TRIGGER) } returns Completable.complete()
-
-        goalSubject.onNext(GOAL)
 
         SUT.pushTrigger(ACTION_ID, TRIGGER_VALUE)
             .subscribe(testObserver)
